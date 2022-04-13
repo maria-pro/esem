@@ -11,3 +11,7 @@ LazyData: true
 Imports: 
     psych
 RoxygenNote: 7.1.2
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr
