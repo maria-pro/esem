@@ -1,0 +1,10 @@
+Package: esem
+Type: Package
+Title: Exploratory Structural Equiation Modeling ESEM 
+Version: 0.1.0
+Author: Maria Prokofieva, Vasileios Stavropoulos, Daniel Zarate <daniel.zarate@live.vu.edu.au> 
+Maintainer: Maria Prokofieva <maria.prokofieva@gmail.com>
+Description: The package provides general functions to complete ESEM, including ....A sample data is provided. The package supplements paper ....
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
