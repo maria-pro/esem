@@ -15,3 +15,5 @@ Suggests:
     rmarkdown,
     knitr
 VignetteBuilder: knitr
+URL: https://github.com/maria-pro/esem
+BugReports: https://github.com/maria-pro/esem/issues
