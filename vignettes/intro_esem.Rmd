@@ -14,6 +14,17 @@ knitr::opts_chunk$set(
 )
 ```
 
+## What is ESEM
+
+ESEM is ...
+
+## General steps to complete ESEM
+
+Step 1.
+
+Step 2
+
+
 ```{r setup}
 library(esem)
 ```
