@@ -5,12 +5,12 @@
 \title{esem
 completes esem estimation using the provided parameters}
 \usage{
-esem(animal, sound)
+esem(awesome, beautiful)
 }
 \arguments{
-\item{animal}{is the parameter to control}
+\item{awesome}{is the parameter to control}
 
-\item{sound}{is the parameter to control}
+\item{beautiful}{is the parameter to control}
 }
 \value{
 prints the string
@@ -20,5 +20,5 @@ esem
 completes esem estimation using the provided parameters
 }
 \examples{
-esem(awesome, beautiful)
+esem("awesome", "beautiful")
 }

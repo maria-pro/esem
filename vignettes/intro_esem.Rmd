@@ -20,9 +20,9 @@ ESEM is ...
 
 ## General steps to complete ESEM
 
-Step 1.
+Step 1. Data Screening, Cleaning, and Preparation
 
-Step 2
+Step 2. Determine the Most Appropriate Software,Estimator, Rotations, and Procedure
 
 
 ```{r setup}

@@ -2,7 +2,7 @@ Package: esem
 Type: Package
 Title: Exploratory Structural Equiation Modeling ESEM 
 Version: 0.1.0
-Author: Maria Prokofieva, Vasileios Stavropoulos, Daniel Zarate <daniel.zarate@live.vu.edu.au> 
+Author: Maria Prokofieva, Vasileios Stavropoulos, Daniel Zarate
 Maintainer: Maria Prokofieva <maria.prokofieva@gmail.com>
 Description: The package provides general functions to complete ESEM, including ....A sample data is provided. The package supplements paper ....
 Website: https://maria-pro.github.io/esem/
@@ -10,11 +10,15 @@ License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    psych
+    psych,
+    lavaanPlot
 RoxygenNote: 7.1.2
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    lavaan
 VignetteBuilder: knitr
 URL: https://github.com/maria-pro/esem
 BugReports: https://github.com/maria-pro/esem/issues
+Depends: 
+    R (>= 2.10)
