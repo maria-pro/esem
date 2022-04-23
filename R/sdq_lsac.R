@@ -10,8 +10,8 @@
 #' from urban and rural areas of all states and territories in Australia.
 #' The study has a multi-disciplinary base, and examines a broad range of topics,
 #' including parenting, family, peers, education, child care and health.
-#' }
-#' \details{
+#'
+#'
 #' Data are collected from two cohorts every two years.
 #' The first cohort of 5,000 children was aged 0–1 years in 2003–04, and
 #' the second cohort of 5,000 children was aged 4–5 years in 2003–04. The full dataset is available
@@ -36,32 +36,7 @@
 #'   \href{https://doi.org/10.18637/jss.v045.i03}{Groothuis-Oudshoorn, 2011}
 #'
 #' @format A tibble with 3840 rows and 25 variables:
-#' \describe{
-#' \item{s1_1}{questionnaire item}
-#' \item{s2_1}{questionnaire item}
-#' \item{s3_1}{questionnaire item}
-#' \item{s4_1}{questionnaire item}
-#' \item{s5_1}{questionnaire item}
-#' \item{s6_1}{questionnaire item}
-#' \item{s7_1R}{questionnaire item}
-#' \item{s8_1}{questionnaire item}
-#' \item{s9_1}{questionnaire item}
-#' \item{s10_1}{questionnaire item}
-#' \item{s11_1R}{questionnaire item}
-#' \item{s12_1}{questionnaire item}
-#' \item{s13_1}{questionnaire item}
-#' \item{s14_1R}{questionnaire item}
-#' \item{s15_1}{questionnaire item}
-#' \item{s16_1}{questionnaire item}
-#' \item{s17_1}{questionnaire item}
-#' \item{s18_1}{questionnaire item}
-#' \item{s19_1}{questionnaire item}
-#' \item{s20_1}{questionnaire item}
-#' \item{s21_1R}{questionnaire item}
-#' \item{s22_1}{questionnaire item}
-#' \item{s23_1}{questionnaire item}
-#' \item{s24_1}{questionnaire item}
-#' \item{s25_1R}{questionnaire item}
+#
 #' }
 #' @source \url{https://growingupinaustralia.gov.au/data-and-documentation}
 "sdq_lsac"

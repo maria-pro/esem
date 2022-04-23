@@ -18,13 +18,64 @@ knitr::opts_chunk$set(
 
 ESEM is ...
 
+The theoretical aspect of ESEM is covered in Marsh et al. (REFERENCE)
+The ESEM-within-CFA is explained in Morin et al. 
+
+The bifactor ESEM is demonstrated in Howard et al. (2018) and H-ESEM  in Morin and Asparouhov (2018)
+
 ## General steps to complete ESEM
 
 Step 1. Data Screening, Cleaning, and Preparation
 
 Step 2. Determine the Most Appropriate Software,Estimator, Rotations, and Procedure
 
+## The package
 
-```{r setup}
+The package was developed to simplify the operational aspect of ESEM: instead of loading and using several packages, the package is a all-in-one access to steps required for ESEM with both approaches, "normal" ESEM and ESEM-within-CFA, as well as it provides access to other ESEM approaches, such as H-ESEM and bifactor ESEM (Howard et al. (2018)) 
+
+## How to use the package
+
+- Install the package using the following code:
+Before running the code, you need to install `remotes` package
+
+```{r eval=FALSE}
+install.packages("remotes")
+```
+
+```{r}
+remotes::install_github("maria-pro/esem", build_vignettes = TRUE)
 library(esem)
 ```
+
+
+## ESEM demonstration - "normal" ESEM
+
+#### Step 0. Loading data and exploring it
+
+The tutorial uses the SDQ-LSAC dataset, which has been cleaned, including removing cases with missing more than 10% of variables  and imputing the rest. The details of the cleaning are provided in the Appendix.
+
+The dataset is part of the package. To load the data we use
+
+```{r}
+data<-sdq_lsac
+```
+
+
+#### Step 1. Calculating EFA derived cross-loadings 
+
+The first step is to conduct EFA and estimate cross-loadings that will be used later in the ESEM model. We use `fa()` function and provide:
+
+- the number of factors to estimate `nfactors` which is 5 in this case
+
+- select the rotation `rotate` which  is `geominQ` and 
+
+- select the estimation method `fm` which is `ml`
+
+
+```{r}
+esem_efa<-fa(data=data, nfactors=5, rotate= “geominQ”, fm= “ml”, delta=.5)
+
+esem_efa$loadings
+
+```
+
