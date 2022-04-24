@@ -47,6 +47,157 @@ remotes::install_github("maria-pro/esem", build_vignettes = TRUE)
 library(esem)
 ```
 
+#### Definitions:
+
+**Measurement invariance** (= **measurement equivalence**) assumes that the same construct can be measured across some specified groups. It ensures consistency in interpretation of the results when the same instrument is used for different groups. For CFA and SEM, it can also be called "factorial invariance".
+
+The measurement invariance relates to:
+
+- *Equal form*: The number of factors and the pattern of factor-indicator relationships are identical across groups.
+
+- *Equal loadings*: Factor loadings are equal across groups.
+
+- *Equal intercepts*: When observed scores are regressed on each factor, the intercepts are equal across groups.
+
+- *Equal residual variances*: The residual variances of the observed scores not accounted for by the factors are equal across groups.
+
+**Missing values:**
+
+You have an option to deal with missing values in data cleaning and exploration step *before* the modeling step. However, the missing values can also be dealt with in the CFA/EFA step
+
+By default, missing values are removed with listwise deletion. 
+The alternative is to use case-wise (or ‘full information’) maximum likelihood estimation by setting `missing="ML"` in the function (e.g. for MCAR (missing completely at random) or MAR (missing at random).
+
+**Ordinal variables:**
+
+Explicit use of ordinal variables is done in the `ordered` parameter by setting it to  `ordered = TRUE`. This set the model to treat all variables as ordinal.
+
+
+**Estimation methods:**
+
+The estimation method is set up in `estimator` parameter, e.g. `estimator = "ML"`
+
+By default, `ML` estimator is the default one for EFA/CFA. 
+
+Additionally, the following alternative estimators are available:
+
+- `"GLS"`: generalized least squares. For complete data only.
+
+- `"WLS"`: weighted least squares (sometimes called ADF estimation). For complete data only.
+
+- `"DWLS"`: diagonally weighted least squares
+
+- `"ULS"`: unweighted least squares
+
+- `"DLS"`: distributionally-weighted least squares
+
+- `"PML"`: pairwise maximum likelihood
+
+For robust equivalents that  provide robust standard errors and a scaled test statistic, the following ones are available:
+
+- `"MLM"`: maximum likelihood estimation with robust standard errors and a Satorra-Bentler scaled test statistic. For complete data only.
+
+- `"MLMVS"`: maximum likelihood estimation with robust standard errors and a mean- and variance adjusted test statistic (aka the Satterthwaite approach). For complete data only.
+
+- `"MLMV"`: maximum likelihood estimation with robust standard errors and a mean- and variance adjusted test statistic (using a scale-shifted approach). For complete data only.
+
+- `"MLF"`: for maximum likelihood estimation with standard errors based on the first-order derivatives, and a conventional test statistic. For both complete and incomplete data.
+
+- `"MLR"`: maximum likelihood estimation with robust (Huber-White) standard errors and a scaled test statistic that is (asymptotically) equal to the Yuan-Bentler test statistic. For both complete and incomplete data.
+
+If you use either the `DWLS` and `ULS` estimators, the available ‘robust’ variants: `WLSM`, `WLSMVS`, `WLSMV`, `ULSM`, `ULSMVS`, `ULSMV`.
+
+
+**Rotation:**
+
+Rotations are used for EFA where m\*m restrictions need to be applied to identify the model and this is done by the rotation. CFA does not involve rations, since it already has m\*m restrictions on Lambda and Psi parameters.
+
+The following rotation approaches are provided:
+
+*Orthogonal rotations:*
+
+- "none"
+
+- "varimax"
+
+- "quartimax"
+
+- "bentlerT"
+
+- "equamax"
+
+- "varimin"
+
+- "geominT"
+
+- "bifactor"
+
+*Oblique rotations:*
+
+- "Promax" / "promax"
+
+- "oblimin"
+
+- "simplimax"
+
+- "bentlerQ"
+
+- "geominQ"
+
+- "biquartimin" 
+
+- "cluster" 
+
+For choosing the correct rotation, these links are useful:
+
+[Sass, D. A., & Schmitt, T. A. (2010). A comparative investigation of rotation criteria within exploratory factor analysis. Multivariate Behavioral Research, 45(1), 73–103.] (https://doi.org/10.1080/00273170903504810)
+
+[Shiken: JALT Testing & Evaluation SIG Newsletter. 13 (3) November 2009 (p. 20 - 25)](
+https://hosted.jalt.org/test/PDF/Brown31.pdf)
+
+
+
+
+
+
+The default is to do a oblimin transformation, although versions prior to 2009 defaulted to varimax. SPSS seems to do a Kaiser normalization before doing Promax, this is done here by the call to "promax" which does the normalization before calling Promax in GPArotation.
+
+
+**Model evaluation: measurement model**
+Goodness-of-fit indices (CFI, TLI and RMSEA)
+
+
+
+**Model evaluation: factorial model**
+
+Absolute fit indices: Chi-Square 
+
+Approximate fit indices: 
+Root-Means-Square Error of Approximation (RMSEA) Standardized Root Mean Square Residual
+(SRMR)
+
+Incremental fit indices
+Comparative Fit Index (CFI)
+Tucker-Lewis Index (TLI),
+Akaike Information Criterion (AIC)
+Consistent AIC (CAIC; calculated as BIC + free parameters
+Bayes Information Criterion (BIC)
+Sample-Size Adjusted BIC (aBIC)
+
+**Standard errors:**
+
+Standard errors are (by default) based on the expected information matrix. The only exception is when data are missing and full information ML is used (via missing = "ML"). In this case, the observed information matrix is used to compute the standard errors. The user can change this behavior by using the information argument.
+
+Robust standard errors can be requested explicitly by using se = "robust". Similarly, robust test statistics can be requested explicitly by using test = "robust". Many more options are possible. See the help page:
+
+**Measurement model reporting:**
+
+Item level parameters  evaluation: 
+CFA models: the corrected item-total correlations (CITC) values > 0.30 
+Indicators of reliability evaluation:
+point-estimate composite reliability (upper-bound; ρ > 0.80) 
+McDonald’s Omega (& > 0.70)
+
 
 ## ESEM demonstration - "normal" ESEM
 
@@ -62,6 +213,8 @@ data<-sdq_lsac
 
 
 #### Step 1. Calculating EFA derived cross-loadings 
+
+We assume that the factorial 
 
 The first step is to conduct EFA and estimate cross-loadings that will be used later in the ESEM model. We use `fa()` function and provide:
 
