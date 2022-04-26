@@ -39,7 +39,7 @@ The package was developed to simplify the operational aspect of ESEM: instead of
 Before running the code, you need to install `remotes` package
 
 ```{r eval=FALSE}
-install.packages("remotes")
+#install.packages("remotes")
 library(tidyverse)
 ```
 
@@ -168,8 +168,6 @@ To compare the results with
 **Model evaluation: measurement model**
 Goodness-of-fit indices (CFI, TLI and RMSEA)
 
-
-
 **Model evaluation: factorial model**
 
 Absolute fit indices: Chi-Square 
@@ -188,9 +186,9 @@ Sample-Size Adjusted BIC (aBIC)
 
 **Standard errors:**
 
-Standard errors are (by default) based on the expected information matrix. The only exception is when data are missing and full information ML is used (via missing = "ML"). In this case, the observed information matrix is used to compute the standard errors. The user can change this behavior by using the information argument.
+Standard errors are (by default) based on the expected information matrix. To request robust standard errors explicitly  use `se = "robust"`. 
 
-Robust standard errors can be requested explicitly by using se = "robust". Similarly, robust test statistics can be requested explicitly by using test = "robust". Many more options are possible. See the help page:
+To explicitly requested robust test statistics use `test = "robust"`. Please see `psych` package for more options.
 
 **Measurement model reporting:**
 
@@ -201,7 +199,7 @@ point-estimate composite reliability (upper-bound; ρ > 0.80)
 McDonald’s Omega (& > 0.70)
 
 
-## ESEM demonstration - "normal" ESEM
+## ESEM demonstration
 
 #### Step 0. Loading data and exploring it
 
@@ -212,27 +210,7 @@ The dataset is part of the package. To load the data we use
 ```{r}
 data<-sdq_lsac
 ```
-
-
-```{r}
-main_loadings_list <- list(
-                          pp = c("s6_1", "s11_1R", "s14_1R", "s19_1", "s23_1"),
-                          cp = c("s5_1", "s7_1R", "s12_1", "s18_1", "s22_1"),
-                          es = c("s3_1", "s8_1", "s13_1", "s16_1", "s24_1"),
-                          ha = c("s2_1","s10_1","s15_1","s21_1R","s25_1R"),
-                          ps = c("s1_1","s4_1","s9_1","s17_1","s20_1")
-                          ) 
-
-data_esem<-data%>%
-  select(
-    all_of(unlist(main_loadings_list, use.names=FALSE))
-    )
-names(data_esem)=paste0("x",c(1:25))
-data_esem<-as.matrix(data_esem, dimnames=list(0,
-                                              paste0("x",c(1:25))
-                                              ))
-
-```
+#!!!!!!!!!!!!!
 
 #### Step 1. Calculating EFA derived cross-loadings 
 
@@ -245,27 +223,27 @@ The first step is to conduct EFA and estimate cross-loadings that will be used l
 
 - select the estimation method `fm` which is `ml`. See the list of available estimation methods above.
 
-
 #### Demonstration
+
+##### Models to be estimated
 
 For demonstration purposes we are going to use the following models:
 
-0. Model 0: Strict uni-dimensional model - this is a base model
+0. *Model 0*: Strict uni-dimensional model - this is a base model
 
-1. Model 1: Correlated Five First-Order CFA Model comprised of PP, CP, ES, HA and PS
+1. *Model 1*: Correlated Five First-Order CFA Model comprised of PP, CP, ES, HA and PS
 
-2. Model 2: Hierarchical CFA Model compromises a single Second-Order Factor of SDQ, consisting of five first-order factors
+2. *Model 2*: Hierarchical CFA Model compromises a single Second-Order Factor of SDQ, consisting of five first-order factors
 
-3. Model 3: Bifactor CFA Model of SDQ 
+3. *Model 3*: Bifactor CFA Model of SDQ 
 
-4. Model 4: Correlated Five-factor First-Order ESEM Model comprised of EPP, CP, ES, HA and PS
+4. *Model 4*: Correlated Five-factor First-Order ESEM Model comprised of EPP, CP, ES, HA and PS
 
-5. Model 5: Hierarchical ESEM Model compromise of a single Second-Order Factor of SDQ, made up of five first-order factors 
+5. *Model 5*: Hierarchical ESEM Model compromise of a single Second-Order Factor of SDQ, made up of five first-order factors 
 
-6. Model 6: Bifactor ESEM Model for SDQ 
+6. *Model 6*: Bifactor ESEM Model for SDQ 
 
-7. Model 7: Correlated Five-Factor First-Order ESEM within CFA Model 1. Here, SDQ is seen as the function of five independent first-order factors (i.e. EPP, CP, ES, HA and PS). We use the starting values from Model 4 to constrain the items loadings for each independent factor.
-
+7. *Model 7*: Correlated Five-Factor First-Order ESEM within CFA Model 1. Here, SDQ is seen as the function of five independent first-order factors (i.e. EPP, CP, ES, HA and PS). We use the starting values from Model 4 to constrain the items loadings for each independent factor.
 
 #### Estimation approaches and rotations
 
@@ -299,6 +277,96 @@ For the *bifactor ESEM* (i.e. model 6) we used the same strategy as for model 3.
 For the *ESEM-with-CFA* model (model 7), model 4 (i.e. original ESEM model) SDQ is a the function of five independent first-order factors:  the starting values from the initial ESEM model (i.e. model 4) are used to constrain the items loadings for each independent factor. Since the CFA framework is used, no rotation is applicable.
 
 The syntax for model 4, 5 and 6 is generated using R.
+
+#### Procedure
+
+*Model 0: Unidimensional CFA Model of SDQ. * (baseline model)
+
+A unidimensional model for overall SDQ is estimated, where all 25 items (s1_1 to s25_1R) load directly on to SDQ. 
+
+```{r}
+model0<-'SDQ =~ s1_1 + s2_1 +s3_1 + s4_1 + s5_1 + s6_1 + s7_1R + s8_1 +s9_1+ s10_1 + s11_1R + s12_1 + s13_1 + s14_1R + s15_1 + s16_1 + s17_1+ s18_1 + s19_1 + s20_1 + s21_1R + s22_1 + s23_1 + s24_1 + s25_1R'
+
+model0.fit<- lavaan::cfa(model0, data=data, mimic =c("MPlus"), std.lv = TRUE, ordered = TRUE)
+
+```
+
+*Model 1*: Correlated Five Factor First-Order CFA Model comprised of PP, CP, ES, HA and PS
+
+```{r}
+model1<-'PP =~ s6_1+ s11_1R + s14_1R + s19_1 + s23_1
+        CP =~  s5_1 + s7_1R + s12_1+ s18_1 + s22_1
+        ES =~  s3_1 + s8_1 + s13_1 + s16_1 + s24_1
+        HA =~  s2_1 + s10_1 + s15_1 + s21_1R + s25_1R
+        PS =~  s1_1 + s4_1 + s9_1 + s17_1 + s20_1'
+
+model1.fit<- lavaan::cfa(model1, data=data, mimic =c("MPlus"), std.lv = TRUE, ordered = TRUE)
+
+```
+
+*Model 2*: Hierarchical CFA Model compromises a single Second-Order Factor of SDQ, consisting of five first-order factors
+
+```{r}
+model2<-'PP =~ s6_1+ s11_1R + s14_1R + s19_1 + s23_1
+         CP =~  s5_1 + s7_1R + s12_1+ s18_1 + s22_1
+         ES =~  s3_1 + s8_1 + s13_1 + s16_1 + s24_1
+         HA =~  s2_1 + s10_1 + s15_1 + s21_1R + s25_1R
+         PS =~  s1_1 + s4_1 + s9_1 + s17_1 + s20_1
+        
+        # Second order factor SDQ
+        SDQ =~ PP + CP + ES + HA + PS'
+
+model2.fit<- lavaan::cfa(model2, data=data, mimic =c("MPlus"), std.lv = TRUE, ordered = TRUE)
+
+```
+
+
+3. *Model 3*: Bifactor CFA Model of SDQ 
+
+We review the results by using `summary()` to view full results or using `fitMeasures` to view the global fit of a latent variable model, using the fit measures we specify in `fit.measures` argument.Alternatively, we can use `fit.measures = "all"` to view all fit measures available.
+
+```{r}
+summary(model0.fit, fit.measures = TRUE)
+
+lavaan::fitMeasures(model0.fit, fit.measures= c("chisq.scaled", "df", "pvalue.scaled", "rmsea.scaled", "rmsea.ci.lower.scaled", "rmsea.ci.upper.scaled", "rmsea.pvalue.scaled"))
+
+lavaan::fitMeasures(model0.fit, fit.measures="all")
+```
+
+We can next review the correlation residuals wherepairwise coefficients can help to identify possible locations of model misfit. The generated `model0.fit` object contains the residuals that can be viewed using:
+
+```{r}
+residuals(model0.fit)$cov
+```
+
+To examine various item parameter estimates we use `parameterEstimates()` function which provides parameter estimates of a latent variable model.
+
+The `parameterEstimates()` function returns a dataframe with estimated parameters, parameters, standard errors and z-values, p-values, and the lower and upper values of the confidence intervals. We use `standardized=TRUE` to add standardized versions of the parameter estimates to the output. We filter the results to view factor loadings using `filter(op == "=~")` and select parameters of interest.
+
+```{r}
+lavaan::parameterEstimates(model0.fit, standardized=TRUE) %>% 
+  filter(op == "=~") %>% 
+  select(Item=rhs, Standardized=est, ci.lower, ci.upper, SE=se, Z=z, 'p-value'=pvalue)
+```
+The loadings indicate how much scores on an item change with a one-unit change in the latent factor. Higher loadings indicate items more sensitive to changes in levels of the latent construct.
+
+To obtain the results of squared multiple correlations or SMCs (R2s) we can filter the output of `paraterEstimates()` function using `filter(op == "r2")`. R2s , the squared standardized loadings of items,indicate the percentage of variance of each item that is explained by the factor. The higher the percentage of variance of an item that is explained by the factor suggests that the item is a better fit at measuring the factor. 
+
+
+```{r}
+lavaan::parameterEstimates(model0.fit, standardized=TRUE, rsquare = TRUE) %>% 
+  filter(op == "r2") %>% 
+  select(Item=rhs, R2 = est) 
+```
+To visualise the model we use `lavaanPlot()` function with `coefs=TRUE` argument, so we can view the loadings.
+
+```{r}
+lavaanPlot::lavaanPlot(model=model0.fit, coefs = TRUE)
+```
+
+```{r}
+lavaanPlot::lavaanPlot(model=model1.fit, coefs = TRUE)
+```
 
 
 
