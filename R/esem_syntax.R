@@ -1,4 +1,4 @@
-esem_cfa_syntax<-function(esem_efa){
+esem_syntax<-function(esem_efa){
   esem_loadings <- as_tibble(matrix(round(esem_efa$loadings, esem_efa$factors),
                                     nrow = length(esem_efa$complexity), ncol = esem_efa$factors),
                              name_repair="minimal")
