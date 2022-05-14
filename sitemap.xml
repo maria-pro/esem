@@ -7,27 +7,27 @@
     <loc>/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/intro_esem.html</loc>
-  </url>
-  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/esem.html</loc>
+    <loc>/reference/esem_cfa_syntax.html</loc>
+  </url>
+  <url>
+    <loc>/reference/esem_syntax.html</loc>
+  </url>
+  <url>
+    <loc>/reference/esem_syntax_keys.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fa.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/lavaanPlot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/lsac.html</loc>
+    <loc>/reference/sdq_lsac.html</loc>
   </url>
 </urlset>
