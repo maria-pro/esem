@@ -1,3 +1,12 @@
+#' Title
+#'
+#' @param esem_efa
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
 esem_cfa_syntax<-function(esem_efa){
   esem_loadings <- as_tibble(matrix(round(esem_efa$loadings, esem_efa$factors),
                                     nrow = length(esem_efa$complexity), ncol = esem_efa$factors),
@@ -39,4 +48,7 @@ esem_cfa_syntax<-function(esem_efa){
 
   esem_model<-paste0(esem_model$syntax, "\n", collapse="\n")
   return (esem_model)
+
+
+
 }

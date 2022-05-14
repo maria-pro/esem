@@ -1,3 +1,12 @@
+#' Title
+#'
+#' @param key_matrix
+#' @param fixed
+#'
+#' @return
+#' @export
+#'
+#' @examples
 esem_syntax_keys<-function(key_matrix, fixed){
 
   syntax<-key_matrix%>%
