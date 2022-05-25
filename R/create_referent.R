@@ -32,27 +32,25 @@ create_referent<-function(esem_efa_results){
 
   loadings<-esem_efa_results$loadings
   loadings<- data.frame(matrix(as.numeric(loadings), attributes(loadings)$dim, dimnames=attributes(loadings)$dimnames))%>%
-    rownames_to_column(var = "item")
+    tibble::rownames_to_column(var = "item")
 
   #names(test) <- paste0("F", as.character(seq(1, ncol(test), by=1)))
 
   loadings<-loadings%>%
-    pivot_longer(!item, names_to="latent", values_to="value")%>%
-    arrange(by=latent)
+    tidyr::pivot_longer(!item, names_to="latent", values_to="value")%>%
+    dplyr::arrange(by=latent)
 
   referent_list<-loadings%>%
-    group_by(latent)%>%
-    mutate(max_per_factor = `item`[value == max(value)],
-           is_anchor=case_when(
+    dplyr::group_by(latent)%>%
+    dplyr::mutate(max_per_factor = `item`[value == max(value)],
+           is_anchor=dplyr::case_when(
              max_per_factor==item ~ TRUE,
              TRUE ~ FALSE
            )
-    )%>%ungroup()%>%
-    filter(is_anchor)%>%
-    select(item, latent)
+    )%>%dplyr::ungroup()%>%
+    dplyr::filter(is_anchor)%>%
+    dplyr::select(item, latent)
 
-  referent_list<-as.list(syntax)
+  referent_list<-as.list(referent_list)
   referent_list
-
-
 }
