@@ -52,6 +52,7 @@ create_referent<-function(esem_efa_results){
     select(item, latent)
 
   referent_list<-as.list(syntax)
+  referent_list
 
 
 }
