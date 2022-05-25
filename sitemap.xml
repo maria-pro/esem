@@ -16,16 +16,19 @@
     <loc>/reference/create_referent.html</loc>
   </url>
   <url>
+    <loc>/reference/esem_cfa.html</loc>
+  </url>
+  <url>
     <loc>/reference/esem_cfa_syntax.html</loc>
+  </url>
+  <url>
+    <loc>/reference/esem_efa.html</loc>
   </url>
   <url>
     <loc>/reference/esem_syntax.html</loc>
   </url>
   <url>
     <loc>/reference/esem_syntax_keys.html</loc>
-  </url>
-  <url>
-    <loc>/reference/fa.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
