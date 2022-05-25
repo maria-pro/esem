@@ -7,7 +7,7 @@
 create_referent(esem_efa_results)
 }
 \arguments{
-\item{esem_efa}{is a \cite{psych::fa()} object with the results of exploratory factor analysis (EFA)
+\item{esem_efa_results}{is a \cite{psych::fa()} object with the results of exploratory factor analysis (EFA)
 The object can be created using psych::fa() or a wrapper esem_efa() function
 The function uses efa object to identify referents
 A referent indicator is selected for each factor

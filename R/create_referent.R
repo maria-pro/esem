@@ -1,6 +1,6 @@
 #' Create a referent list
 #'
-#' @param esem_efa is a \cite{psych::fa()} object with the results of exploratory factor analysis (EFA)
+#' @param esem_efa_results is a \cite{psych::fa()} object with the results of exploratory factor analysis (EFA)
 #' The object can be created using psych::fa() or a wrapper esem_efa() function
 #' The function uses efa object to identify referents
 
@@ -27,7 +27,7 @@ create_referent<-function(esem_efa_results){
 
     if (!is(esem_efa_results, "fa")) {
     # msg <- "Please the object created using psych::fa() function."
-    rlang::abort("bad argument", message = "Please the object created using psych::fa() function.")
+    rlang::abort("bad argument", message = "Please the object created using esem_efa() or psych::fa() function.")
   }
 
   loadings<-esem_efa_results$loadings
