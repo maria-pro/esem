@@ -1,4 +1,18 @@
+#' Exploratory factor analysis (EFA) for ESEM
 #is a wrapper function for psych::fa()
+#' @param data
+#' @param nfactors
+#' @param rotate
+#' @param scores
+#' @param residuals
+#' @param missing
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+
 esem_efa<-function(data, nfactors, fm = 'ML',
                    rotate="geominT",
                    scores="regression",

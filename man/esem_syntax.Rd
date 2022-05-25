@@ -2,16 +2,30 @@
 % Please edit documentation in R/esem_syntax.R
 \name{esem_syntax}
 \alias{esem_syntax}
-\title{Title}
+\title{Create a model syntax for ESEM-with-CFA}
 \usage{
-esem_syntax(esem_efa)
+esem_syntax(esem_efa_results, referent_list = NULL)
 }
 \arguments{
-\item{esem_efa}{}
+\item{esem_efa_results}{is a \cite{psych::fa()} object with the results of exploratory factor analysis (EFA)
+The object can be created using psych::fa() or a wrapper esem_efa() function}
+
+\item{referent_list}{is a list with latent variables (factors) and their corresponding referent items.
+referent_list can be generated using create_referent() function.
+If no referent_list is provided, the list is generated automatically}
 }
 \value{
-
+A character vector with a lavaan syntax for the ESEM model.
 }
 \description{
-Title
+Create a model syntax for ESEM-with-CFA
+}
+\examples{
+use Holzinger and Swineford (1939) dataset in lavaan package
+hw_data <- lavaan::HolzingerSwineford1939
+hw_data <- hw_data[,c(7:15)]
+
+esem_efa_results <- esem_efa(hw_data,3)
+model_syntax <- esem_syntax(esem_efa_results)
+writeLines(model_syntax)
 }
