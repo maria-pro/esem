@@ -13,6 +13,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/create_referent.html</loc>
+  </url>
+  <url>
     <loc>/reference/esem_cfa_syntax.html</loc>
   </url>
   <url>
@@ -26,6 +29,9 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pipe.html</loc>
   </url>
   <url>
     <loc>/reference/sdq_lsac.html</loc>
