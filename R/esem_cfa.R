@@ -22,6 +22,7 @@ esem_cfa<-function(model,
                                 data=data,
                                 mimic=mimic,
                                 std.lv=std.lv,
+                                estimator = "WLSMV",
                                 ordered=ordered)
   esem_cfa_results
 
