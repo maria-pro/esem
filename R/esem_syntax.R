@@ -23,8 +23,7 @@
 esem_syntax<-function(esem_efa_results, referent_list=NULL){
 
     if (!is(esem_efa_results, "fa")) {
-    # msg <- "Please the object created using psych::fa() function."
-    rlang::abort("bad argument", message = "Please the object created using esem_efa() or psych::fa() function.")
+    rlang::abort("bad argument", message = "Please provide the object created using esem_efa() or psych::fa() function.")
     }
 
 
