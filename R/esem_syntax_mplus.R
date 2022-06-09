@@ -6,15 +6,6 @@
 #'
 #' @return A character vector with a lavaan syntax for the ESEM model that imitates MPlus.
 #' @export
-#'
-#' use Holzinger and Swineford (1939) dataset in lavaan package
-#' hw_data <- lavaan::HolzingerSwineford1939
-#' hw_data <- hw_data[,c(7:15)]
-#'
-#' esem_efa_results <- esem_efa(hw_data,3)
-#' model_syntax <- esem_syntax_mplus(esem_efa_results)
-#' writeLines(model_syntax)
-#'
 esem_syntax_mplus<-function(key_matrix=NULL){
 
 
