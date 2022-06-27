@@ -50,7 +50,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">create_referent</span><span class="op">(</span><span class="va">esem_efa_results</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">create_referent</span><span class="op">(</span><span class="va">esem_efa_results</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -63,25 +63,28 @@ A referent indicator is selected for each factor
 It is the item that has a large (target) loading for the factor it measures and
 The referents are used to ensure model identification and are used as starting values/ fixed values in the
 the next step to create a lavaan model syntax.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with factors and corresponding referents (i.e. referents in that factor)</p>
+    
+
+<p>A list with factors and corresponding referents (i.e. referents in that factor)</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># use Holzinger and Swineford (1939) dataset in lavaan package</span></span>
-<span class="r-in"><span class="va">hw_data</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="va">HolzingerSwineford1939</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use Holzinger and Swineford (1939) dataset in lavaan package</span></span></span>
+<span class="r-in"><span><span class="va">hw_data</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="va">HolzingerSwineford1939</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘lavaan’</span>
-<span class="r-in"><span class="va">hw_data</span> <span class="op">&lt;-</span> <span class="va">hw_data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span><span class="op">:</span><span class="fl">15</span><span class="op">)</span><span class="op">]</span></span>
+<span class="r-in"><span><span class="va">hw_data</span> <span class="op">&lt;-</span> <span class="va">hw_data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span><span class="op">:</span><span class="fl">15</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'hw_data' not found</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#make exploratory analysis with geomin rotation</span></span>
-<span class="r-in"><span class="va">esem_efa_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="esem_efa.html">esem_efa</a></span><span class="op">(</span><span class="va">hw_data</span>,<span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#make exploratory analysis with geomin rotation</span></span></span>
+<span class="r-in"><span><span class="va">esem_efa_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="esem_efa.html">esem_efa</a></span><span class="op">(</span><span class="va">hw_data</span>,<span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in NROW(x):</span> object 'hw_data' not found</span>
-<span class="r-in"><span class="va">referent_list</span> <span class="op">&lt;-</span> <span class="fu">create_referent</span><span class="op">(</span><span class="va">esem_efa_results</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">referent_list</span> <span class="op">&lt;-</span> <span class="fu">create_referent</span><span class="op">(</span><span class="va">esem_efa_results</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is(esem_efa_results, "fa"):</span> object 'esem_efa_results' not found</span>
 </code></pre></div>
     </div>
@@ -97,7 +100,7 @@ the next step to create a lavaan model syntax.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
