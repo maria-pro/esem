@@ -23,21 +23,30 @@ esem_syntax_mplus<-function(key_matrix=NULL){
     tibble::rownames_to_column(var = "item")
 
   esem_model<-loadings%>%
-    dplyr::mutate(across(everything(), replace_last_0))%>%
+# dplyr::mutate(across(everything(), replace_last_0))%>%
     tidyr::pivot_longer(-item, names_to="latent", values_to="value" )%>%
     dplyr::mutate(
-      syntax=paste0(value, "*", item)
-    )%>%
+#      syntax=paste0(value, "*", item)
+#   )
+# (
+#    is_anchor_total=sum(is_anchor),
+    syntax=dplyr::case_when(
+      value=="NA" ~ paste0(value,"*", item),
+      value==1 ~ item,
+      TRUE ~ paste0("start(0)*", item)
+    )
+  )%>%
     dplyr::group_by(latent)%>%
     dplyr::mutate(syntax=paste0(latent, "=~", paste0(syntax, collapse="+\n")))%>%
     dplyr::distinct(latent, .keep_all = TRUE)%>%
+    dplyr::mutate(syntax_variance=paste0(latent, " ~~ 1*",latent, collapse="\n"))%>%
     dplyr::ungroup()%>%
     dplyr::select(-latent)
 
 
-  esem_model<-paste0(esem_model$syntax, "\n", collapse="\n")
-
-  esem_model
+  esem_model<-paste0(esem_model$syntax, "\n",
+                 esem_model$syntax_variance, "\n",
+                     collapse="\n")
 
 
 }

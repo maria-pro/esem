@@ -4,6 +4,7 @@
 #' @param nfactors
 #' @param rotate
 #' @param scores
+#' @param Target
 #' @param residuals
 #' @param missing
 #' @param ...
@@ -17,11 +18,13 @@ esem_efa<-function(data, nfactors, fm = 'ML',
                    rotate="geominT",
                    scores="regression",
                    residuals=TRUE,
+                   Target=NULL,
                    missing=TRUE){
   esem_efa_results<-psych::fa(data, nfactors =nfactors,
                               fm = fm,
                               rotate=rotate,
                               scores=scores,
+                              Target=Target,
                               residuals=residuals,
                               missing=missing)
   esem_efa_results

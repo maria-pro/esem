@@ -11,6 +11,7 @@ esem_efa(
   rotate = "geominT",
   scores = "regression",
   residuals = TRUE,
+  Target = NULL,
   missing = TRUE
 )
 }
