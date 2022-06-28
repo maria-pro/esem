@@ -20,12 +20,20 @@ esem_efa<-function(data, nfactors, fm = 'ML',
                    residuals=TRUE,
                    Target=NULL,
                    missing=TRUE){
-  esem_efa_results<-psych::fa(data, nfactors =nfactors,
+
+  if(is.null(Target)) {esem_efa_results<-psych::fa(data, nfactors =nfactors,
+                               fm = fm,
+                               rotate=rotate,
+                               scores=scores,
+                               residuals=residuals,
+                               missing=missing)}
+  else {esem_efa_results<-psych::fa(data, nfactors =nfactors,
                               fm = fm,
                               rotate=rotate,
                               scores=scores,
                               Target=Target,
                               residuals=residuals,
                               missing=missing)
+  }
   esem_efa_results
 }
