@@ -1,0 +1,217 @@
+---
+title: "Introduction to ESEM"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{intro_esem}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(esem)
+```
+
+## Exploratory Structural Equiation Modeling ESEM  with `esem` package
+
+## Setup
+
+Install packages if required
+```{r eval=FALSE}
+install.packages("tidyverse","psych","lavaan","semPlot")
+remotes::install_github("maria-pro/esem", build_vignettes = TRUE)
+```
+
+Start
+```{r eval=FALSE}
+
+library(esem)
+library(tidyverse)
+library(lavaan)
+library(semPlot)
+library(psych)
+
+#the package with the dataset to be used
+remotes::install_github("maria-pro/esem", build_vignettes = FALSE)
+library(esem)
+```
+Load the data into the R: `sdq_lsac` is in-built dataset that is also available at .......
+
+```{r eval=FALSE}
+sdq_lsac<-sdq_lsac
+```
+
+To review the dimensions of the data (i.e. observations and variables), use `dim()` function
+
+```{r eval=FALSE}
+dim(sdq_lsac)
+```
+
+`describe()` function provides the statistics about the dataset. Other functions are available to explore the variables and relationships between them which is not part of this tutorial.
+
+```{r eval=FALSE}
+describe(sdq_lsac)
+```
+
+The current tutorial skips the preprocessing and data exploration steps and goes straight to the steps to complete the ESEM.
+
+We follow the classical approach in treating SDQ data which is a 5-factor model. The allocation of variables to factors are set up using the named list data structure using `list()` function where factors are specified using the left-hand side of `=` and the constituent sdq_lsac items are provided as a vector using `c()`. Five factors are specified below: `pp`, `cp`, `es`, `ha` and `ps`.
+
+```{r eval=FALSE}
+main_loadings_list <- list(
+                          pp = c("s6_1", "s11_1R", "s14_1R", "s19_1", "s23_1"),
+                          cp = c("s5_1", "s7_1R", "s12_1", "s18_1", "s22_1"),
+                          es = c("s3_1", "s8_1", "s13_1", "s16_1", "s24_1"),
+                          ha = c("s2_1","s10_1","s15_1","s21_1R","s25_1R"),
+                          ps = c("s1_1","s4_1","s9_1","s17_1","s20_1")
+                          ) 
+```
+
+#### ESEM based on EFA derived loading thresholds
+
+
+The `esem_efa()` function estimates and reports EFA. The results are saved in `esem_efa_results` object.
+
+The following arguments are used:
+
+- the dataset to be used `data=sdq_lsac`, alteratively, a correlation or covariance matrix can be provided
+
+- the number of factors `nfactors=5` (based on the classic 5-factor SDQ approach in literature)
+
+- the evaluation is done using the ML algorithm, `fm = 'ml'`. The alternative algorithms are available, including minimum residual (minres, i.e. ols or uls), principal axes, alpha factoring, weighted least squares and minimum rank. The full list of algorithms is provided at [here](https://www.rdocumentation.org/packages/psych/versions/2.2.3/topics/fa) 
+
+- the rotation method `rotate = "geominT"`. The full list of available rotations is accessible at [here](https://www.rdocumentation.org/packages/psych/versions/2.2.3/topics/fa)
+
+- factor scores are estimated using regression via `scores="regression"`. Alternative approaches are available at [here] (https://www.rdocumentation.org/packages/psych/versions/2.2.3/topics/fa)
+
+- `residuals=TRUE` requests the residual matrix to be generated and presented 
+
+- the dataset used in this tutorial (sdq_lsac) has no missing values, but for demonstration purposes the argument missing=TRUE is used – it allows to impute missing values during the EFA stage. 
+
+- the default confidence intervals for RMSEA is used with `alpha=.1` 
+
+- the default probability values are used for confidence intervals, however they can be adjusted by specifying p and the value. The default is `p=.05.`
+
+For more options on running the esem_efa() function please see [here](https://www.rdocumentation.org/packages/psych/versions/2.2.5/topics/fa).
+Please ignore the `“Loading required namespace: GPArotation”` message received, as such functions are already addressed by the packages retrieved.
+
+
+```{r eval=FALSE}
+
+esem_efa_results <- esem_efa(data=sdq_lsac, 
+                      nfactors =5,
+                      fm = 'ML',
+                      rotate="geominT", 
+                      scores="regression", 
+                      residuals=TRUE, 
+                      missing=TRUE)
+
+```
+
+*ALTERNATIVELY*
+
+The alternative solution is to run EFA with Target rotation. This option is explained in Step 1a below
+
+#### Conduct EFA to calculate EFA derived cross-loadings with Target rotation
+
+For target rotation, there needs to be a target supplied to the EFA.
+
+To make a target, a list of main loadings (`main_loading_list`) is created using the `list()` function and supplied to `make_target()` function. 
+
+The following arguments are used:
+
+- the dataset to be used `data=sdq_lsac`,
+- `keys= main_loadings_list` is the list of main loadings
+
+The `esem_efa()` function is used with `rotate= “TargetQ"` and target matrix provided as `Target`. All other arguments remain the same
+
+```{r eval=FALSE}
+
+main_loadings_list <- list(
+  pp = c("s6_1", "s11_1R", "s14_1R", "s19_1", "s23_1"),
+  cp = c("s5_1", "s7_1R", "s12_1", "s18_1", "s22_1"),
+  es = c("s3_1", "s8_1", "s13_1", "s16_1", "s24_1"),
+  ha = c("s2_1","s10_1","s15_1","s21_1R","s25_1R"),
+  ps = c("s1_1","s4_1","s9_1","s17_1","s20_1")
+)
+
+target<-make_target(
+           data=sdq_lsac, 
+           keys=main_loadings_list)
+
+esem_efa(
+     data=sdq_lsac,
+     nfactors = 5,
+     rotate="TargetQ",
+    Target= target)
+
+```
+
+Reviewing the generated loadings and creating a  referent items per factor, list
+
+```{r eval=FALSE}
+esem_model <- esem_syntax(esem_efa_results, referent_list)
+
+writeLines(esem_model)
+
+```
+
+To address this step an ESEM model is required. This can be automatically produced using the `esem _syntax()` function available from the esem code developed for this tutorial.  The function uses the step 1 EFA results and the step 2 referent item(s) per factor list. 
+
+Providing the `referent_list` object is optional. If no referent list is provided, it is created by the function itself and is used in model syntax generation. This allows all primary and non-primary loadings to be considered at their EFA varying levels.
+ 
+Step 3 also automatically produces the `esem_model` syntax as one structural unit/object to be tested at step 4. 
+
+`writeLines(model_syntax)` allows to review the model syntax before it is used further. If required the model can be adjusted manually by the researcher.
+
+Review the generated syntax carefully. This may be required for model identification purposes. For example, in case the variance-covariance matrix of the estimated parameters (vcov) does not appear to be positive definite, further adjustments to the model are required.
+
+If adjustments are required the model can be rewritten manually
+
+Testing the ESEM model 
+
+```{r eval=FALSE}
+esem_fit <- esem_cfa(model=esem_model, 
+                data=sdq_lsac, 
+                std.lv=TRUE,
+               ordered = TRUE)
+summary(esem_fit, fit.measures = TRUE, standardized = TRUE, ci = TRUE)
+```
+The `esem_cfa()` function fits a CFA model, where:
+
+- the model syntax is specified using the esem_syntax generated in step 3, model=esem_model 
+
+- the dataset is specified in` data=sdq_lsac`
+
+- a list of model matrices is requested where values are the standardized model parameters, while the variances of the latent variables are set to unity. This is done via `std.lv = TRUE`
+
+- instrument items are specified as ordinal variables with `ordered = TRUE`
+
+To review the results the `summary() `function is used with: 
+
+-`fit.measures = TRUE`. This calculates the goodness of fit parameters to assess model fit
+
+The argument `Standardized = TRUE` provides two columns reporting (i) standardized parameters when only the latent variable is standardized (`std.lv`), and (ii) standardized parameters when both observed and latent variables are standardized (`std.all`).
+
+For more options on running esem_cfa() function please see [here](https://www.rdocumentation.org/packages/lavaan/versions/0.5-9/topics/cfa) 
+
+Visualizing ESEM Model 
+
+```{r eval=FALSE}
+semPaths(esem_fit,whatLabels = "std",layout = "tree")
+```
+
+The `semPaths ()` function plots the model and allows to customise its visualization with the following arguments:  
+- `esem_fit` as the fitted model, created in step 4
+- `whatLabels=”std”` to produce standardized path coefficients
+- `layout=”tree”` to produce a tree-like disposition of elements in the plot
+
+
+ 
+
