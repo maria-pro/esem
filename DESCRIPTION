@@ -10,6 +10,7 @@ License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Imports: 
+    GPArotation,
     magrittr,
     psych
 RoxygenNote: 7.1.2
