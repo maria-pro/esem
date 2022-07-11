@@ -3,6 +3,7 @@
 export("%>%")
 export(create_referent)
 export(esem_cfa)
+export(esem_cfa2)
 export(esem_cfa_syntax)
 export(esem_efa)
 export(esem_syntax)
