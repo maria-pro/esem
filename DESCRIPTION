@@ -1,19 +1,23 @@
 Package: esem
 Type: Package
-Title: Exploratory Structural Equiation Modeling ESEM 
-Version: 0.1.0
+Title: Exploratory Structural Equiation Modeling ESEM
+Version: 1.0.0
 Author: Maria Prokofieva, Vasileios Stavropoulos, Daniel Zarate
 Maintainer: Maria Prokofieva <maria.prokofieva@gmail.com>
-Description: The package provides general functions to complete ESEM, including ....A sample data is provided. The package supplements paper ....
+Description: The package is developed to support the tutorial on using ESEM with LSAC dataset. The package uses "tidyverse","psych","lavaan","semPlot" package and provide additional functions to conduct ESEM. The package provides general functions to complete ESEM, including esem_c(), creation of target matrix if it is used make_target(), generation of CFA model syntax esem_cfa_syntax(). A sample data is provided. the package include a sample of SDQ LSAC data in sdq_lsac.  The package vignette presents the tutorial demonstrating the use of ESEM on SDQ LSAC data
 Website: https://maria-pro.github.io/esem/
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    GPArotation,
+    lavaan,
     magrittr,
-    psych
-RoxygenNote: 7.1.2
+    psych,
+    tidyr,
+    dplyr,
+    rlang,
+    tibble
+RoxygenNote: 7.2.3
 Suggests: 
     rmarkdown,
     knitr
@@ -21,4 +25,4 @@ VignetteBuilder: knitr
 URL: https://github.com/maria-pro/esem
 BugReports: https://github.com/maria-pro/esem/issues
 Depends: 
-    R (>= 2.10)
+    R (>= 2.10),
